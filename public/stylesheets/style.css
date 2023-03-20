@@ -1,0 +1,45 @@
+/* モーダル全体(背景＋本体) */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+/* モーダル背景 */
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* モーダル本体 */
+.modal-content {
+  position: relative;
+  align-self: center;
+
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  overflow: scroll; /* はみ出た部分はスクロールさせる */
+  height: 40%; /* これが無いと「overflow:scroll」が利かない */
+  width: 70%; /* これが無いと「overflow:scroll」が利かない */
+  background: white;
+  padding: 40px;
+}
+
+/* モーダルウィンドウ表示中に記事本体を固定 */
+body.fixed {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+a {
+  text-decoration: none;
+}

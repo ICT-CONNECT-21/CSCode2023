@@ -1,0 +1,63 @@
+extends layout
+
+block content
+  div(style="font-size: 9pt")
+    form(action="/", method="POST")
+      table(align="center", style="width: 90%")
+        tbody
+          tr
+            td 学校種別
+            td
+              select(name="school" id="school" style="min-width: 250px;")
+                  option
+                  each val in schools
+                    option(value=val.gakko_code, selected= val.gakko_code == params.school) #{val.gakko_nm}
+            td 教科
+            td
+              select(name="subject" id="subject" style="min-width: 250px;")
+                  option
+                  each val in subjects
+                    option(value=val.kyoka_code, selected= val.kyoka_code == params.subject) #{val.kyoka_nm}
+            td
+            td(style="text-align: right")
+              input(type="submit", value="検索")
+  hr(style="width: 90%")
+  #container
+    .row
+      .col-md-12
+        table(align="LEFT")
+          tbody
+            tr
+              td
+              td
+                ul.tree-menu
+                  if items && items.length > 0
+                    each val,index in items
+                      li
+                        - idModal = "modal00" + index
+                        a.js-modal-open(href="#", data-target=idModal) #{val['course_study_text']}
+                        div(id=idModal,class="modal js-modal")
+                          .modal-bg.js-modal-close
+                          .modal-content
+                            p(align="right")
+                              a.js-modal-close(href="#") × CLOSE
+                            table(border="1", style="border-collapse: collapse")
+                              tbody
+                                tr(valign="top")
+                                  td(style="width: 150px") 学習指導要領コード 
+                                  td #{val['course_study_code']} 
+                                tr(valign="top")
+                                  td(style="width: 150px") 番地
+                                  td #{val['course_study_address']} 
+                                tr(valign="top")
+                                  td(style="width: 150px;") 学習指導要領
+                                  td(style="word-break: break-all;") #{val['course_study_text']}
+                                tr(valign="top")
+                                  td(style="width: 150px;") 学習指導要領解説
+                                  td(style="word-break: break-all;")
+                                    -url = !val.url ? "" : val.url + "#page=" + val.page
+                                    if url
+                                      a(href=url , target="_blank") #{url}
+                  if errorMessage != ""
+                    p(style="color: red") #{errorMessage}
+                                    
